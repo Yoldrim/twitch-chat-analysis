@@ -8,14 +8,15 @@ class Message {
     'UserDisplayName TEXT NOT NULL, ' +
     'UserSubscriber INTEGER NOT NULL, ' +
 
+    'Text TEXT NOT NULL, ' +
+
     'SentimentScore INTEGER NOT NULL, ' +
     'SentimentComparative INTEGER NOT NULL, ' +
 
     'UserColor CHAR(7), ' +       // CAN BE NULL
     'SentimentPositive TEXT, ' +  // CAN BE NULL
-    'SentimentNegative TEXT, ' +  // CAN BE NULL
+    'SentimentNegative TEXT';  // CAN BE NULL
 
-    'Text TEXT NOT NULL';
 
   externalId            = undefined;
 
@@ -24,17 +25,18 @@ class Message {
   userId                = undefined;
   userName              = undefined;
   userDisplayName       = undefined;
-  userColor             = undefined;
   userSubscriber        = undefined;
-
-  sentimentScore        = undefined;
-  sentimentComparative  = undefined;
-  sentimentPositive     = undefined;
-  sentimentNegative     = undefined;
 
   text                  = undefined;
 
-  constructor(externalId, roomId, userId, userName, userDisplayName, userColor, userSubscriber, sentimentScore, sentimentComparative, sentimentPositive, sentimentNegative, text) {
+  sentimentScore        = undefined;
+  sentimentComparative  = undefined;
+
+  userColor             = undefined;
+  sentimentPositive     = undefined;
+  sentimentNegative     = undefined;
+
+  constructor(externalId, roomId, userId, userName, userDisplayName, userSubscriber, text, sentimentScore, sentimentComparative, userColor, sentimentPositive, sentimentNegative) {
     this.externalId           = externalId;
 
     this.roomId               = roomId;
@@ -44,10 +46,10 @@ class Message {
     this.userDisplayName      = userDisplayName;
     this.userSubscriber       = userSubscriber;
 
+    this.text                 = text;
+
     this.sentimentScore       = sentimentScore;
     this.sentimentComparative = sentimentComparative;
-
-    this.text                 = text;
 
     this.userColor            = userColor;
     this.sentimentPositive    = sentimentPositive;
@@ -99,6 +101,7 @@ class Message {
       this.userName             !== undefined &&
       this.userDisplayName      !== undefined &&
       this.userSubscriber       !== undefined &&
+      this.text                 !== undefined &&
       this.sentimentScore       !== undefined &&
       this.sentimentComparative !== undefined
   };

@@ -55,13 +55,13 @@ class TMIChatListener {
       msg['user-id'],
       msg['username'],
       msg['display-name'],
-      msg['color'],
       msg['subscriber'],
+      msg['text'],
       msg.sentiment['score'],
       msg.sentiment['comparative'],
+      msg['color'],
       msg.sentiment['positive'],
-      msg.sentiment['negative'],
-      msg['text']
+      msg.sentiment['negative']
     );
 
     Log.v("Broadcasting message:", message);
