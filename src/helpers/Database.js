@@ -49,27 +49,42 @@ class Database {
     return exists[0];
   };
 
-  createTableWithId = async (tableName, columnsString) => {
-    Log.v('>>>>> Database.createTableWithId()');
+  createTable = async (tableName, columnsString) => {
+    Log.v('>>>>> Database.createTable()');
     const createTableLock = [ undefined ];
-    const sql = `CREATE TABLE IF NOT EXISTS ${tableName} (id INTEGER PRIMARY KEY,${columnsString})`;
+    const sql = `CREATE TABLE IF NOT EXISTS ${tableName} (${columnsString})`;
     Log.v(`Trying to create table with query "${sql}"`);
     this.db.run(sql, (err) => {
+      createTableLock[0] = 'unlocked';
       if (err) {
         throw err;
       }
+
+      Log.i(`Created table with name "${tableName}"`)
     });
 
     await Toolkit.waitFor(createTableLock);
+    Log.v('<<<<< Database.createTable()');
+  };
+
+  createTableWithId = async (tableName, columnsString) => {
+    Log.v('>>>>> Database.createTableWithId()');
+    await this.createTable(tableName, `id INTEGER PRIMARY KEY, ${columnsString}`);
     Log.v('<<<<< Database.createTableWithId()');
+  };
+
+  createTableWithIdAndTs = async (tableName, columnsString) => {
+    Log.v('>>>>> Database.createTableWithIdAndTs()');
+    await this.createTable(tableName, `id INTEGER PRIMARY KEY, Timestamp DATETIME default CURRENT_TIMESTAMP, ${columnsString}`);
+    Log.v('<<<<< Database.createTableWithIdAndTs()');
   };
 
   open = async () => {
     Log.v('>>>>> Database.open()');
-    const dbInitLock = [ undefined ];
+    const dbOpenLock = [ undefined ];
 
     this.db = new sqlite3.Database(this.dbName, (err) => {
-      dbInitLock[0] = 'unlocked';
+      dbOpenLock[0] = 'unlocked';
       if (err) {
         throw err;
       }
@@ -77,7 +92,7 @@ class Database {
       Log.i(`Connected to SQlite database at ${this.dbName}`);
     });
 
-    await Toolkit.waitFor(dbInitLock);
+    await Toolkit.waitFor(dbOpenLock);
     Log.v('<<<<< Database.open()');
   };
 
@@ -95,6 +110,10 @@ class Database {
       Log.e('Database not opened, cannot close');
     }
     Log.v('<<<<< Database.close()');
+  };
+
+  run = (...args) => {
+    this.db.run(...args);
   }
 }
 
