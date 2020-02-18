@@ -35,7 +35,7 @@ class TMIChatSubscriber {
     let message = {...context, text};
 
     // Sort out messages sent by bots, seems all bots have partner flag (?)
-    if (message.badges.partner) {
+    if (message.badges && message.badges.partner) {
       return console.log('don\'t handle messages from bots');
     }
 

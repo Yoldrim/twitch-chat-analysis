@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node main.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
     "express": "^4.17.1",
@@ -15,8 +15,7 @@
     "graphql": "^14.6.0",
     "sentiment": "^5.0.2",
     "sqlite3": "^4.1.1",
-    "tmi.js": "^1.5.0",
-    "ws": "^7.2.1"
+    "tmi.js": "^1.5.0"
   },
   "devDependencies": {}
 }
