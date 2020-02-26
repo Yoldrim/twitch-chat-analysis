@@ -1,6 +1,6 @@
 // Imports
 const tmi = require('tmi.js');
-const Sentiment = require('../helpers/Sentiment');
+const Sentiment = require('../helpers/sentiment/Sentiment');
 const Log = require('../helpers/Log');
 const Message = require('../models/Message');
 
